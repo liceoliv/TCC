@@ -117,9 +117,9 @@ void setup() {
 void loop() {
   liga();
   esteira();
-  //sobe1();
+  sobe1();
   sobe2();
-  //desce1();
+  desce1();
   desce2();
 }
 
@@ -220,9 +220,43 @@ void esteira() {   //1° andar
     analogWrite(vel7, 80);
     }
 }
- 
+void sobe1() {
+  int sen1=digitalRead(sensor1);
+  int sen3=digitalRead(sensor3);
+  int sen5=digitalRead(sensor5);
+  int sen6=digitalRead(sensor6);
+  int sen7=digitalRead(sensor7);
+  char key = teclado.getKey();
+  if (key != NO_KEY) {
+    if (key == '1' && sen1==HIGH ){
+      if(b2state){}
+      if(b4state){}
+      if(b5state){}
+      digitalWrite(motor4, HIGH);
+      analogWrite(vel4, 80);
+  }
+  }
+}
+
+  void desce1() {
+  int sen1=digitalRead(sensor1);
+  int sen3=digitalRead(sensor3);
+  int sen5=digitalRead(sensor5);
+  int sen6=digitalRead(sensor6);
+  int sen7=digitalRead(sensor7);
+  char key = teclado.getKey();
+  if (key != NO_KEY) {
+    if (key == '1' && sen1==HIGH ){
+      if(b2state){}
+      if(b4state){}
+      if(b5state){}
+      digitalWrite(motor8, HIGH);
+      analogWrite(vel8, 80);
+  }
+  }
+  }
 //função sobe 2 
-void sobe2(){
+void sobe2() {
     int sen1=digitalRead(sensor1);
     int sen3=digitalRead(sensor3);
     int sen5=digitalRead(sensor5);
@@ -265,7 +299,7 @@ void sobe2(){
 }
 
   //função desce 2
-void desce2(){
+void desce2() {
     int sen1=digitalRead(sensor1);
     int sen3=digitalRead(sensor3);
     int sen5=digitalRead(sensor5);
