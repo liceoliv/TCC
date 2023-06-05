@@ -8,9 +8,6 @@
 #define pul2 46
 #define ena2 47
 
-#define ledred 42 //ação indisponivel 
-#define ledverde 43 //ação em processo
-#define ledazul 44
 
 #define motor1 22 // pin rotação sentido horário
 #define motor2 23
@@ -84,9 +81,6 @@ void setup() {
   pinMode(dir2, OUTPUT);
   pinMode(pul2, OUTPUT);
   
-  pinMode(ledred, OUTPUT);
-  pinMode(ledverde, OUTPUT);
-  pinMode(ledazul, OUTPUT);
 
   pinMode(motor1, OUTPUT);  //define entradas e saidas
   pinMode(motor2, OUTPUT);
@@ -127,10 +121,8 @@ void liga() {
 char key = teclado.getKey();
  if (key != NO_KEY) {
     if (key == '3') {
-      if (b6state) {} 
-      else {
-       digitalWrite(ledazul, HIGH);
-      }
+      if (b6state) {}
+}
     } 
   char keys = teclado.getKey();
    if (key == '6'){
@@ -139,7 +131,6 @@ char key = teclado.getKey();
     if (b3state){}
     if (b4state){}
     if (b5state){}
-    digitalWrite(ledazul, LOW);
   }
   }
 }
@@ -270,7 +261,6 @@ void sobe2() {
     if(b4state){}
     if(b5state){}
     digitalWrite(ena, LOW);  
-    digitalWrite(ledverde, HIGH);
     digitalWrite(dir, direcao);
     for(int i = 0; i < passosPorRevolucao*2; i++){       
       digitalWrite(pul, HIGH);            
@@ -293,7 +283,6 @@ void sobe2() {
         delayMicroseconds(500000 / velocidade);
         digitalWrite(pul, LOW);
         delayMicroseconds(500000 / velocidade);
-        digitalWrite(ledverde, LOW);
   }
 }
 }
@@ -314,7 +303,6 @@ void desce2() {
     if(b4state){}
     if(b1state){}
     digitalWrite(ena2, LOW);
-    digitalWrite(ledverde, HIGH);
     digitalWrite(dir2, direcao);
       for(int i = 0; i < passosPorRevolucao*2; i++){
         digitalWrite(pul2, HIGH);            
@@ -337,7 +325,6 @@ void desce2() {
         delayMicroseconds(500000 / velocidade);
         digitalWrite(pul2, LOW);
         delayMicroseconds(500000 / velocidade);
-        digitalWrite(ledverde, LOW);
   }
   }
 }
