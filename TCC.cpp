@@ -246,7 +246,7 @@ void sobe1() {
   int sen7=digitalRead(sensor7);
   char key = teclado.getKey();
   if (key != NO_KEY) {
-    if (key == '1' && sen1==HIGH ){
+    if (key == '4' && sen1==HIGH ){
       if(b2state){}
       if(b4state){}
       if(b5state){}
