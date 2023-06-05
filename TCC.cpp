@@ -184,31 +184,31 @@ void esteira() {   //1° andar
     digitalWrite(motor7, LOW);
     analogWrite(vel5, 80); //escolhe velocidade entre 0 a 255
     analogWrite(vel6, 80);
-    analogWrite(vel7, 80);
+    analogWrite(vel4, 80);
   }
    if(sen5==LOW && sen6==LOW && sen7==HIGH || sen5==LOW && sen6==HIGH && sen7==HIGH || sen5==HIGH && sen6==LOW && sen7==HIGH || sen5==HIGH && sen6==HIGH && sen7==HIGH){
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, HIGH);
-    digitalWrite(motor7, HIGH);
+    digitalWrite(motor4, HIGH);
     analogWrite(vel5, 80);
     analogWrite(vel6, 80);
-    analogWrite(vel7, 80);
+    analogWrite(vel4, 80);
   }
    if(sen5==LOW && sen6==HIGH && sen7==LOW || sen5==HIGH && sen6==HIGH && sen7==LOW ){
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, HIGH); //horário 
-    digitalWrite(motor7, LOW);
+    digitalWrite(motor4, LOW);
     analogWrite(vel5, 80);
     analogWrite(vel6, 80);
-    analogWrite(vel7, 80);
+    analogWrite(vel4, 80);
   }
    if(sen5==HIGH && sen6==LOW && sen7==LOW) {
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, LOW); //horário 
-    digitalWrite(motor7, LOW);
+    digitalWrite(motor4, LOW);
     analogWrite(vel5, 80);
     analogWrite(vel6, 80);
-    analogWrite(vel7, 80);
+    analogWrite(vel4, 80);
     }
 }
 void sobe1() {
@@ -223,8 +223,8 @@ void sobe1() {
       if(b2state){}
       if(b4state){}
       if(b5state){}
-      digitalWrite(motor4, HIGH);
-      analogWrite(vel4, 80);
+      digitalWrite(motor7, HIGH);
+      analogWrite(vel7, 80);
   }
   }
 }
@@ -269,13 +269,13 @@ void sobe2() {
       delayMicroseconds(500000 / velocidade);  
 
       delay(1000);
-      digitalWrite(motor4, HIGH);
-      analogWrite(vel4, 80);
+      digitalWrite(motor7, HIGH);
+      analogWrite(vel7, 80);
       }
   }
     delay(3000);
-    digitalWrite(motor4, LOW);
-    analogWrite(vel4, 80);
+    digitalWrite(motor7, LOW);
+    analogWrite(vel7, 80);
 
     digitalWrite(dir, direcao1);
       for(int i = 0; i < passosPorRevolucao*2; i++){
