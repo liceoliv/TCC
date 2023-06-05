@@ -1,24 +1,23 @@
 #include <Keypad.h>
 
-#define dir 11   //determina a direção de rotação
-#define pul 13   //borda de descida ou subida
-#define ena 12   //habilita o desabilita o driver
+#define dir 11   // determina a direção de rotação
+#define pul 13   // borda de descida ou subida
+#define ena 12   // habilita o desabilita o driver
 
 #define dir2 45
 #define pul2 46
 #define ena2 47
 
-
 #define motor1 22 // pin rotação sentido horário
 #define motor2 23
 #define motor3 24
-#define motor4 25 //esteira do elevador
+#define motor4 25 // esteira do elevador
 #define motor5 26
 #define motor6 27
 #define motor7 28
-#define motor8 29 //esteira do elevador
+#define motor8 29 // esteira do elevador
 
-const int vel1 = 9;  //pino para definir velocidade do motor 
+const int vel1 = 9;  // pino para definir velocidade do motor 
 const int vel2 = 2;  
 const int vel3 = 3;
 const int vel4 = 4;
@@ -26,7 +25,6 @@ const int vel5 = 5;
 const int vel6 = 6;
 const int vel7 = 7;
 const int vel8 = 8;
-
 
 #define sensor1 30
 #define sensor2 31
@@ -65,7 +63,6 @@ byte colPins[colunas] = { 50, 51, 52, 53 };
 // Inicialize o objeto Keypad
 Keypad teclado = Keypad(makeKeymap(keys), rowPins, colPins, linhas, colunas);
 
-
 void setup() {
   pinMode(ena, OUTPUT);
   pinMode(dir, OUTPUT);
@@ -75,8 +72,7 @@ void setup() {
   pinMode(dir2, OUTPUT);
   pinMode(pul2, OUTPUT);
   
-
-  pinMode(motor1, OUTPUT);  //define entradas e saidas
+  pinMode(motor1, OUTPUT);  // define entradas e saídas
   pinMode(motor2, OUTPUT);
   pinMode(motor3, OUTPUT);
   pinMode(motor4, OUTPUT);
@@ -100,191 +96,87 @@ void setup() {
   pinMode(sensor4, INPUT);
   pinMode(sensor5, INPUT);
   pinMode(sensor6, INPUT);
-}   
+  
+  Serial.begin(9600);
+}
 
 void loop() {
-  liga();
-  esteira();
-  sobe1();
-  sobe2();
-  desce1();
-  desce2();
-}
+  char tecla = teclado.getKey();  // Verifica se alguma tecla foi pressionada
 
-void liga() {
-char key = teclado.getKey();
- if (key != NO_KEY) {
-    if (key == '3') {
-
-}
-}
-}
-
-void esteira() {   //1° andar
-
-  int sen1=digitalRead(sensor1); //variável que armazena valor dos sensores
-  int sen2=digitalRead(sensor2);
-  int sen3=digitalRead(sensor3);
-  int sen4=digitalRead(sensor4);
-  int sen5=digitalRead(sensor5);
-  int sen6=digitalRead(sensor6);
-  
-   if(sen1==LOW && sen2==LOW && sen3==LOW){ //condição de quando o motor deve girar
-    digitalWrite(motor1, LOW);
-    digitalWrite(motor2, LOW); 
-    digitalWrite(motor3, LOW);
-    analogWrite(vel1, 80); //escolhe velocidade entre 0 a 255
-    analogWrite(vel2, 80);
-    analogWrite(vel3, 80);
-  }
-   if(sen1==LOW && sen2==LOW && sen3==HIGH || sen1==LOW && sen2==HIGH && sen3==HIGH || sen1==HIGH && sen2==LOW && sen3==HIGH || sen1==HIGH && sen2==HIGH && sen3==HIGH){
-    digitalWrite(motor1, HIGH); //horário 
-    digitalWrite(motor2, HIGH);
-    digitalWrite(motor3, HIGH);
-    analogWrite(vel1, 80);
-    analogWrite(vel2, 80);
-    analogWrite(vel3, 80);
-  }
-   if(sen1==LOW && sen2==HIGH && sen3==LOW || sen1==HIGH && sen2==HIGH && sen3==LOW ){
-    digitalWrite(motor1, HIGH); //horário 
-    digitalWrite(motor2, HIGH); //horário 
-    digitalWrite(motor3, LOW);
-    analogWrite(vel1, 80);
-    analogWrite(vel2, 80);
-    analogWrite(vel3, 80);
-  }
-   if(sen1==HIGH && sen2==LOW && sen3==LOW) {
-    digitalWrite(motor1, HIGH); //horário 
-    digitalWrite(motor2, LOW); //horário 
-    digitalWrite(motor3, LOW);
-    analogWrite(vel1, 80);
-    analogWrite(vel2, 80);
-    analogWrite(vel3, 80);
+  if (tecla != NO_KEY) {
+    switch(tecla) {
+      case '1':
+        sobe1();
+        break;
+      case '2':
+        desce1();
+        break;
+      case '3':
+        sobe2();
+        break;
+      case '4':
+        desce2();
+        break;
     }
-
-    // 2°andar
-    if(sen4==LOW && sen5==LOW && sen6==LOW){ //condição de quando o motor deve girar
-    digitalWrite(motor5, LOW);
-    digitalWrite(motor6, LOW); 
-    digitalWrite(motor4, LOW);
-    analogWrite(vel5, 80); //escolhe velocidade entre 0 a 255
-    analogWrite(vel6, 80);
-    analogWrite(vel4, 80);
   }
-   if(sen4==LOW && sen5==LOW && sen6==HIGH || sen4==LOW && sen5==HIGH && sen6==HIGH || sen4==HIGH && sen5==LOW && sen6==HIGH || sen4==HIGH && sen5==HIGH && sen6==HIGH){
-    digitalWrite(motor5, HIGH); //horário 
-    digitalWrite(motor6, HIGH);
-    digitalWrite(motor4, HIGH);
-    analogWrite(vel5, 80);
-    analogWrite(vel6, 80);
-    analogWrite(vel4, 80);
-  }
-   if(sen4==LOW && sen5==HIGH && sen6==LOW || sen4==HIGH && sen5==HIGH && sen6==LOW ){
-    digitalWrite(motor5, HIGH); //horário 
-    digitalWrite(motor6, HIGH); //horário 
-    digitalWrite(motor4, LOW);
-    analogWrite(vel5, 80);
-    analogWrite(vel6, 80);
-    analogWrite(vel4, 80);
-  }
-   if(sen4==HIGH && sen5==LOW && sen6==LOW) {
-    digitalWrite(motor5, HIGH); //horário 
-    digitalWrite(motor6, LOW); //horário 
-    digitalWrite(motor4, LOW);
-    analogWrite(vel5, 80);
-    analogWrite(vel6, 80);
-    analogWrite(vel4, 80);
-    }
 }
+
 void sobe1() {
-  int sen1=digitalRead(sensor1);
-  char key = teclado.getKey();
-  if (key != NO_KEY) {
-    if (key == '1' && sen1==HIGH ){
-      digitalWrite(motor7, HIGH);
-      analogWrite(vel7, 80);
-  }
-  }
-}
-
-  void desce1() {
-  int sen1=digitalRead(sensor1);
-  int sen3=digitalRead(sensor3);
-  char key = teclado.getKey();
-  if (key != NO_KEY) {
-    if (key == '4' && sen3==HIGH ){
-      digitalWrite(motor8, HIGH);
-      analogWrite(vel8, 80);
-  }
-  }
-  }
-//função sobe 2 
-void sobe2() {
-    int sen4=digitalRead(sensor4);
-
-  digitalWrite(ena, HIGH);
- char key = teclado.getKey();
- if (key != NO_KEY) {
-  if (key == '2' && sen4==HIGH ){
-    digitalWrite(ena, LOW);  
+  if (digitalRead(sensor1) == HIGH && digitalRead(sensor4) == LOW) {
     digitalWrite(dir, direcao);
-    for(int i = 0; i < passosPorRevolucao*2; i++){       
-      digitalWrite(pul, HIGH);            
-      delayMicroseconds(500000 / velocidade);
+    digitalWrite(ena, LOW);
+
+    // Gire o motor no sentido horário por um determinado número de passos
+    for (int i = 0; i < passosPorRevolucao; i++) {
+      digitalWrite(pul, HIGH);
+      delayMicroseconds(velocidade);
       digitalWrite(pul, LOW);
-      delayMicroseconds(500000 / velocidade);  
-
-      delay(1000);
-      digitalWrite(motor7, HIGH);
-      analogWrite(vel7, 80);
-      }
-  }
-    delay(3000);
-    digitalWrite(motor7, LOW);
-    analogWrite(vel7, 80);
-
-    digitalWrite(dir, direcao1);
-      for(int i = 0; i < passosPorRevolucao*2; i++){
-        digitalWrite(pul, HIGH);
-        delayMicroseconds(500000 / velocidade);
-        digitalWrite(pul, LOW);
-        delayMicroseconds(500000 / velocidade);
+      delayMicroseconds(velocidade);
+    }
   }
 }
+
+void desce1() {
+  if (digitalRead(sensor2) == HIGH && digitalRead(sensor5) == LOW) {
+    digitalWrite(dir, !direcao);
+    digitalWrite(ena, LOW);
+
+    // Gire o motor no sentido anti-horário por um determinado número de passos
+    for (int i = 0; i < passosPorRevolucao; i++) {
+      digitalWrite(pul, HIGH);
+      delayMicroseconds(velocidade);
+      digitalWrite(pul, LOW);
+      delayMicroseconds(velocidade);
+    }
+  }
 }
 
-  //função desce 2
-void desce2() {
-
-    int sen6=digitalRead(sensor6);
-   
-  digitalWrite(ena2, HIGH);
- char key = teclado.getKey();
- if (key != NO_KEY) {
-  if (key == '5' && sen6==HIGH ){
-    digitalWrite(ena2, LOW);
-    digitalWrite(dir2, direcao);
-      for(int i = 0; i < passosPorRevolucao*2; i++){
-        digitalWrite(pul2, HIGH);            
-        delayMicroseconds(500000 / velocidade);
-        digitalWrite(pul2, LOW);
-        delayMicroseconds(500000 / velocidade);
-
-        delay(1000);
-        digitalWrite(motor8, HIGH);
-        analogWrite(vel8, 80);
-      }
-  }
-    delay(3000);
-    digitalWrite(motor8, LOW);
-    analogWrite(vel8, 80);    
-    
+void sobe2() {
+  if (digitalRead(sensor3) == HIGH && digitalRead(sensor6) == LOW) {
     digitalWrite(dir2, direcao1);
-      for(int i = 0; i < passosPorRevolucao*2; i++){
-        digitalWrite(pul2, HIGH);
-        delayMicroseconds(500000 / velocidade);
-        digitalWrite(pul2, LOW);
-        delayMicroseconds(500000 / velocidade);
+    digitalWrite(ena2, LOW);
+
+    // Gire o motor 2 no sentido horário por um determinado número de passos
+    for (int i = 0; i < passosPorRevolucao2; i++) {
+      digitalWrite(pul2, HIGH);
+      delayMicroseconds(velocidade2);
+      digitalWrite(pul2, LOW);
+      delayMicroseconds(velocidade2);
+    }
   }
+}
+
+void desce2() {
+  if (digitalRead(sensor4) == HIGH && digitalRead(sensor1) == LOW) {
+    digitalWrite(dir2, !direcao1);
+    digitalWrite(ena2, LOW);
+
+    // Gire o motor 2 no sentido anti-horário por um determinado número de passos
+    for (int i = 0; i < passosPorRevolucao2; i++) {
+      digitalWrite(pul2, HIGH);
+      delayMicroseconds(velocidade2);
+      digitalWrite(pul2, LOW);
+      delayMicroseconds(velocidade2);
+    }
   }
 }
