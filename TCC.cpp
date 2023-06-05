@@ -60,7 +60,7 @@ char keys[linhas][colunas] = {
 };
 
 // Conecte as linhas do teclado à porta digital do Arduino
-byte rowPins[linhas] = { 6, 7, 8, 9 };
+byte rowPins[linhas] = { 36, 37, 38, 39 };
 
 // Conecte as colunas do teclado à porta digital do Arduino
 byte colPins[colunas] = { 50, 51, 52, 53 };
