@@ -181,7 +181,7 @@ void esteira() {   //1° andar
     if(sen5==LOW && sen6==LOW && sen7==LOW){ //condição de quando o motor deve girar
     digitalWrite(motor5, LOW);
     digitalWrite(motor6, LOW); 
-    digitalWrite(motor7, LOW);
+    digitalWrite(motor4, LOW);
     analogWrite(vel5, 80); //escolhe velocidade entre 0 a 255
     analogWrite(vel6, 80);
     analogWrite(vel4, 80);
