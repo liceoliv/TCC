@@ -123,15 +123,8 @@ char key = teclado.getKey();
     if (key == '3') {
       if (b6state) {}
 }
-    } 
-  char keys = teclado.getKey();
-   if (key == '6'){
-    if (b1state){}
-    if (b2state){}
-    if (b3state){}
-    if (b4state){}
-    if (b5state){}
-  }
+    }p
+
   }
 }
 
