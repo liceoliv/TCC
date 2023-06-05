@@ -31,9 +31,9 @@ const int vel8 = 8;
 #define sensor1 30
 #define sensor2 31
 #define sensor3 32
-#define sensor5 34
-#define sensor6 35
-#define sensor7 36 
+#define sensor4 34
+#define sensor5 35
+#define sensor6 36 
 
 // Defina o número de passos por revolução
 const int passosPorRevolucao = 200;
@@ -65,12 +65,6 @@ byte colPins[colunas] = { 50, 51, 52, 53 };
 // Inicialize o objeto Keypad
 Keypad teclado = Keypad(makeKeymap(keys), rowPins, colPins, linhas, colunas);
 
-bool b1state = false;
-bool b2state = false;
-bool b3state = false;
-bool b4state = false;
-bool b5state = false;
-bool b6state = false;
 
 void setup() {
   pinMode(ena, OUTPUT);
@@ -103,9 +97,9 @@ void setup() {
   pinMode(sensor1, INPUT);
   pinMode(sensor2, INPUT);
   pinMode(sensor3, INPUT);
+  pinMode(sensor4, INPUT);
   pinMode(sensor5, INPUT);
   pinMode(sensor6, INPUT);
-  pinMode(sensor7, INPUT);
 }   
 
 void loop() {
@@ -121,11 +115,9 @@ void liga() {
 char key = teclado.getKey();
  if (key != NO_KEY) {
     if (key == '3') {
-      if (b6state) {}
-}
-    }p
 
-  }
+}
+}
 }
 
 void esteira() {   //1° andar
@@ -133,9 +125,9 @@ void esteira() {   //1° andar
   int sen1=digitalRead(sensor1); //variável que armazena valor dos sensores
   int sen2=digitalRead(sensor2);
   int sen3=digitalRead(sensor3);
+  int sen4=digitalRead(sensor4);
   int sen5=digitalRead(sensor5);
   int sen6=digitalRead(sensor6);
-  int sen7=digitalRead(sensor7);
   
    if(sen1==LOW && sen2==LOW && sen3==LOW){ //condição de quando o motor deve girar
     digitalWrite(motor1, LOW);
@@ -171,7 +163,7 @@ void esteira() {   //1° andar
     }
 
     // 2°andar
-    if(sen5==LOW && sen6==LOW && sen7==LOW){ //condição de quando o motor deve girar
+    if(sen4==LOW && sen5==LOW && sen6==LOW){ //condição de quando o motor deve girar
     digitalWrite(motor5, LOW);
     digitalWrite(motor6, LOW); 
     digitalWrite(motor4, LOW);
@@ -179,7 +171,7 @@ void esteira() {   //1° andar
     analogWrite(vel6, 80);
     analogWrite(vel4, 80);
   }
-   if(sen5==LOW && sen6==LOW && sen7==HIGH || sen5==LOW && sen6==HIGH && sen7==HIGH || sen5==HIGH && sen6==LOW && sen7==HIGH || sen5==HIGH && sen6==HIGH && sen7==HIGH){
+   if(sen4==LOW && sen5==LOW && sen6==HIGH || sen4==LOW && sen5==HIGH && sen6==HIGH || sen4==HIGH && sen5==LOW && sen6==HIGH || sen4==HIGH && sen5==HIGH && sen6==HIGH){
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, HIGH);
     digitalWrite(motor4, HIGH);
@@ -187,7 +179,7 @@ void esteira() {   //1° andar
     analogWrite(vel6, 80);
     analogWrite(vel4, 80);
   }
-   if(sen5==LOW && sen6==HIGH && sen7==LOW || sen5==HIGH && sen6==HIGH && sen7==LOW ){
+   if(sen4==LOW && sen5==HIGH && sen6==LOW || sen4==HIGH && sen5==HIGH && sen6==LOW ){
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, HIGH); //horário 
     digitalWrite(motor4, LOW);
@@ -195,7 +187,7 @@ void esteira() {   //1° andar
     analogWrite(vel6, 80);
     analogWrite(vel4, 80);
   }
-   if(sen5==HIGH && sen6==LOW && sen7==LOW) {
+   if(sen4==HIGH && sen5==LOW && sen6==LOW) {
     digitalWrite(motor5, HIGH); //horário 
     digitalWrite(motor6, LOW); //horário 
     digitalWrite(motor4, LOW);
@@ -206,16 +198,9 @@ void esteira() {   //1° andar
 }
 void sobe1() {
   int sen1=digitalRead(sensor1);
-  int sen3=digitalRead(sensor3);
-  int sen5=digitalRead(sensor5);
-  int sen6=digitalRead(sensor6);
-  int sen7=digitalRead(sensor7);
   char key = teclado.getKey();
   if (key != NO_KEY) {
     if (key == '1' && sen1==HIGH ){
-      if(b2state){}
-      if(b4state){}
-      if(b5state){}
       digitalWrite(motor7, HIGH);
       analogWrite(vel7, 80);
   }
@@ -225,15 +210,9 @@ void sobe1() {
   void desce1() {
   int sen1=digitalRead(sensor1);
   int sen3=digitalRead(sensor3);
-  int sen5=digitalRead(sensor5);
-  int sen6=digitalRead(sensor6);
-  int sen7=digitalRead(sensor7);
   char key = teclado.getKey();
   if (key != NO_KEY) {
-    if (key == '4' && sen1==HIGH ){
-      if(b2state){}
-      if(b4state){}
-      if(b5state){}
+    if (key == '4' && sen3==HIGH ){
       digitalWrite(motor8, HIGH);
       analogWrite(vel8, 80);
   }
@@ -241,18 +220,12 @@ void sobe1() {
   }
 //função sobe 2 
 void sobe2() {
-    int sen1=digitalRead(sensor1);
-    int sen3=digitalRead(sensor3);
-    int sen5=digitalRead(sensor5);
-    int sen6=digitalRead(sensor6);
-    int sen7=digitalRead(sensor7);
+    int sen4=digitalRead(sensor4);
+
   digitalWrite(ena, HIGH);
  char key = teclado.getKey();
  if (key != NO_KEY) {
-  if (key == '2' && sen5==HIGH ){
-    if(b1state){}
-    if(b4state){}
-    if(b5state){}
+  if (key == '2' && sen4==HIGH ){
     digitalWrite(ena, LOW);  
     digitalWrite(dir, direcao);
     for(int i = 0; i < passosPorRevolucao*2; i++){       
@@ -282,19 +255,13 @@ void sobe2() {
 
   //função desce 2
 void desce2() {
-    int sen1=digitalRead(sensor1);
-    int sen3=digitalRead(sensor3);
-    int sen5=digitalRead(sensor5);
+
     int sen6=digitalRead(sensor6);
-    int sen7=digitalRead(sensor7);
    
   digitalWrite(ena2, HIGH);
  char key = teclado.getKey();
  if (key != NO_KEY) {
-  if (key == '5' && sen7==HIGH ){
-    if(b2state){}
-    if(b4state){}
-    if(b1state){}
+  if (key == '5' && sen6==HIGH ){
     digitalWrite(ena2, LOW);
     digitalWrite(dir2, direcao);
       for(int i = 0; i < passosPorRevolucao*2; i++){
