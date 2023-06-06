@@ -101,6 +101,8 @@ void setup() {
 }
 
 void loop() {
+   esteira();
+
   char tecla = teclado.getKey();  // Verifica se alguma tecla foi pressionada
 
   if (tecla != NO_KEY) {
@@ -121,38 +123,100 @@ void loop() {
   }
 }
 
-void sobe1() {
-  if (digitalRead(sensor1) == HIGH && digitalRead(sensor4) == LOW) {
-    digitalWrite(dir, direcao);
-    digitalWrite(ena, LOW);
+void esteira() {   //1° andar
 
-    // Gire o motor no sentido horário por um determinado número de passos
-    for (int i = 0; i < passosPorRevolucao; i++) {
-      digitalWrite(pul, HIGH);
-      delayMicroseconds(velocidade);
-      digitalWrite(pul, LOW);
-      delayMicroseconds(velocidade);
+  int sen1=digitalRead(sensor1); //variável que armazena valor dos sensores
+  int sen2=digitalRead(sensor2);
+  int sen3=digitalRead(sensor3);
+  int sen4=digitalRead(sensor4);
+  int sen5=digitalRead(sensor5);
+  int sen6=digitalRead(sensor6);
+  
+   if(sen1==LOW && sen2==LOW && sen3==LOW){ //condição de quando o motor deve girar
+    digitalWrite(motor1, LOW);
+    digitalWrite(motor2, LOW); 
+    digitalWrite(motor3, LOW);
+    analogWrite(vel1, 80); //escolhe velocidade entre 0 a 255
+    analogWrite(vel2, 80);
+    analogWrite(vel3, 80);
+  }
+   if(sen1==LOW && sen2==LOW && sen3==HIGH || sen1==LOW && sen2==HIGH && sen3==HIGH || sen1==HIGH && sen2==LOW && sen3==HIGH || sen1==HIGH && sen2==HIGH && sen3==HIGH){
+    digitalWrite(motor1, HIGH); //horário 
+    digitalWrite(motor2, HIGH);
+    digitalWrite(motor3, HIGH);
+    analogWrite(vel1, 80);
+    analogWrite(vel2, 80);
+    analogWrite(vel3, 80);
+  }
+   if(sen1==LOW && sen2==HIGH && sen3==LOW || sen1==HIGH && sen2==HIGH && sen3==LOW ){
+    digitalWrite(motor1, HIGH); //horário 
+    digitalWrite(motor2, HIGH); //horário 
+    digitalWrite(motor3, LOW);
+    analogWrite(vel1, 80);
+    analogWrite(vel2, 80);
+    analogWrite(vel3, 80);
+  }
+   if(sen1==HIGH && sen2==LOW && sen3==LOW) {
+    digitalWrite(motor1, HIGH); //horário 
+    digitalWrite(motor2, LOW); //horário 
+    digitalWrite(motor3, LOW);
+    analogWrite(vel1, 80);
+    analogWrite(vel2, 80);
+    analogWrite(vel3, 80);
     }
+
+    // 2°andar
+    if(sen4==LOW && sen5==LOW && sen6==LOW){ //condição de quando o motor deve girar
+    digitalWrite(motor5, LOW);
+    digitalWrite(motor6, LOW); 
+    digitalWrite(motor4, LOW);
+    analogWrite(vel5, 80); //escolhe velocidade entre 0 a 255
+    analogWrite(vel6, 80);
+    analogWrite(vel4, 80);
+  }
+   if(sen4==LOW && sen5==LOW && sen6==HIGH || sen4==LOW && sen5==HIGH && sen6==HIGH || sen4==HIGH && sen5==LOW && sen6==HIGH || sen4==HIGH && sen5==HIGH && sen6==HIGH){
+    digitalWrite(motor5, HIGH); //horário 
+    digitalWrite(motor6, HIGH);
+    digitalWrite(motor4, HIGH);
+    analogWrite(vel5, 80);
+    analogWrite(vel6, 80);
+    analogWrite(vel4, 80);
+  }
+   if(sen4==LOW && sen5==HIGH && sen6==LOW || sen4==HIGH && sen5==HIGH && sen6==LOW ){
+    digitalWrite(motor5, HIGH); //horário 
+    digitalWrite(motor6, HIGH); //horário 
+    digitalWrite(motor4, LOW);
+    analogWrite(vel5, 80);
+    analogWrite(vel6, 80);
+    analogWrite(vel4, 80);
+  }
+   if(sen4==HIGH && sen5==LOW && sen6==LOW) {
+    digitalWrite(motor5, HIGH); //horário 
+    digitalWrite(motor6, LOW); //horário 
+    digitalWrite(motor4, LOW);
+    analogWrite(vel5, 80);
+    analogWrite(vel6, 80);
+    analogWrite(vel4, 80);
+    }
+}
+
+
+void sobe1() {
+  if (digitalRead(sensor1) == LOW ) {
+    digitalWrite(motor7, HIGH);
+    digitalWrite(vel7, velocidade);
   }
 }
 
 void desce1() {
-  if (digitalRead(sensor2) == HIGH && digitalRead(sensor5) == LOW) {
-    digitalWrite(dir, !direcao);
-    digitalWrite(ena, LOW);
-
-    // Gire o motor no sentido anti-horário por um determinado número de passos
-    for (int i = 0; i < passosPorRevolucao; i++) {
-      digitalWrite(pul, HIGH);
-      delayMicroseconds(velocidade);
-      digitalWrite(pul, LOW);
-      delayMicroseconds(velocidade);
-    }
+  if (digitalRead(sensor3) == LOW) {
+    digitalWrite(motor8, HIGH);
+    digitalWrite(vel8, velocidade);
   }
 }
 
 void sobe2() {
-  if (digitalRead(sensor3) == HIGH && digitalRead(sensor6) == LOW) {
+  if (digitalRead(sensor4) == LOW) {
     digitalWrite(dir2, direcao1);
     digitalWrite(ena2, LOW);
 
@@ -167,7 +231,7 @@ void sobe2() {
 }
 
 void desce2() {
-  if (digitalRead(sensor4) == HIGH && digitalRead(sensor1) == LOW) {
+  if (digitalRead(sensor6) == LOW) {
     digitalWrite(dir2, !direcao1);
     digitalWrite(ena2, LOW);
 
